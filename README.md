@@ -2,7 +2,7 @@
 
 Run two or more pi sessions in the same directory without losing work.
 
-When concurrent sessions edit the same files, the last write wins and silently overwrites the other session's changes. pi-edit-fence prevents that with lightweight, per-file locks that each session claims automatically as it edits. No git worktrees, no manual setup, same directory.
+pi-edit-fence gives each session lightweight, per-file locks that it claims automatically as it edits, so two sessions never overwrite each other's work. No git worktrees, no manual setup, same directory. Without it, concurrent sessions editing the same file just let the last write win, silently discarding the other session's changes.
 
 ## How it works
 
