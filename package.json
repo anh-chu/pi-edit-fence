@@ -1,0 +1,35 @@
+{
+  "name": "pi-edit-fence",
+  "version": "1.0.0",
+  "description": "Stop concurrent pi sessions from clobbering each other's edits. Per-file locks, auto-claim on edit, retry-later, lease expiry, crash recovery. No git worktrees.",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-extension",
+    "concurrency",
+    "file-lock",
+    "worktree-free"
+  ],
+  "license": "MIT",
+  "author": "anh-chu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anh-chu/pi-edit-fence.git"
+  },
+  "homepage": "https://github.com/anh-chu/pi-edit-fence#readme",
+  "bugs": {
+    "url": "https://github.com/anh-chu/pi-edit-fence/issues"
+  },
+  "files": [
+    "extensions",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": ["./extensions"]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  }
+}
