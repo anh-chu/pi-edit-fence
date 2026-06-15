@@ -18,16 +18,24 @@ The lock registry lives at `<cwd>/.pi/ownership.json` and is runtime data, auto-
 
 ## Install
 
+From npm:
+
 ```bash
-pi package add pi-edit-fence
+pi install npm:pi-edit-fence
 ```
 
-Or add it to your pi `settings.json`:
+From git, without waiting for an npm publish:
 
-```json
-{
-  "packages": ["npm:pi-edit-fence@1.0.0"]
-}
+```bash
+pi install git:github.com/anh-chu/pi-edit-fence
+```
+
+By default this writes to user settings (`~/.pi/agent/settings.json`). Use `-l` to install into project settings (`.pi/settings.json`) so a team shares it.
+
+Try it for one run without installing:
+
+```bash
+pi -e npm:pi-edit-fence
 ```
 
 Or drop `extensions/edit-fence.ts` into `~/.pi/agent/extensions/` for a global, no-npm install.
@@ -51,14 +59,14 @@ It works with zero configuration. Open the same project in two pi sessions and e
 
 Edit the tunables at the top of `extensions/edit-fence.ts`:
 
-| Constant | Default | Meaning |
-|---|---|---|
-| `SCOPE` | `"file"` | `"file"` locks the exact file. `"dir"` locks a subtree for area-level coordination. |
-| `CLAIM_DEPTH` | `2` | Subtree depth when `SCOPE === "dir"` (2 keeps `src/api` and `src/ui` distinct). |
-| `LEASE_MS` | `5 min` | Idle time before a lock auto-expires. |
-| `CONTENDED_LEASE_MS` | `20 s` | Shorter idle lease applied while another session is waiting. |
-| `WAIT_MS` | `15 s` | How long a blocked edit waits before returning the retry-later message. |
-| `SHARED_PATTERNS` | configs, lockfiles | Glob patterns treated as warn-only shared zones. |
+| Constant             | Default            | Meaning                                                                             |
+| -------------------- | ------------------ | ----------------------------------------------------------------------------------- |
+| `SCOPE`              | `"file"`           | `"file"` locks the exact file. `"dir"` locks a subtree for area-level coordination. |
+| `CLAIM_DEPTH`        | `2`                | Subtree depth when `SCOPE === "dir"` (2 keeps `src/api` and `src/ui` distinct).     |
+| `LEASE_MS`           | `5 min`            | Idle time before a lock auto-expires.                                               |
+| `CONTENDED_LEASE_MS` | `20 s`             | Shorter idle lease applied while another session is waiting.                        |
+| `WAIT_MS`            | `15 s`             | How long a blocked edit waits before returning the retry-later message.             |
+| `SHARED_PATTERNS`    | configs, lockfiles | Glob patterns treated as warn-only shared zones.                                    |
 
 ### File scope vs dir scope
 
