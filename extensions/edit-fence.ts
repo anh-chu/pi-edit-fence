@@ -269,11 +269,15 @@ export default function (pi: ExtensionAPI) {
 			return undefined;
 		}
 		if (result.kind === "block") {
+			// How long until the lock auto-expires if the owner stays idle from now.
+			// Contention shortens the lease, so this is the worst-case wait before retry succeeds.
+			const lease = result.owner.contendedAt != null ? CONTENDED_LEASE_MS : LEASE_MS;
+			const remainingSec = Math.max(0, Math.ceil((result.owner.ts + lease - Date.now()) / 1000));
 			return {
 				block: true,
 				reason:
 					`path-fence: ${SCOPE === "file" ? "file" : "area"} "${key}" is locked by another active pi session (${result.owner.session}, pid ${result.owner.pid}). ` +
-					`Work on other files, or wait and retry this edit — the lock releases automatically when the other session is done.`,
+					`Work on other files, or wait and retry this edit. The lock releases when the other session is done, and auto-expires in ~${remainingSec}s if it goes idle now (each edit it makes resets that timer).`,
 			};
 		}
 		if (result.kind === "warn" && ctx.hasUI) {

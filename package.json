@@ -1,6 +1,6 @@
 {
   "name": "pi-edit-fence",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Stop concurrent pi sessions from clobbering each other's edits. Per-file locks, auto-claim on edit, retry-later, lease expiry, crash recovery. No git worktrees.",
   "keywords": [
     "pi-package",
