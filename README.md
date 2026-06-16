@@ -64,7 +64,7 @@ Edit the tunables at the top of `extensions/edit-fence.ts`:
 | `SCOPE`              | `"file"`           | `"file"` locks the exact file. `"dir"` locks a subtree for area-level coordination. |
 | `CLAIM_DEPTH`        | `2`                | Subtree depth when `SCOPE === "dir"` (2 keeps `src/api` and `src/ui` distinct).     |
 | `LEASE_MS`           | `5 min`            | Idle time before a lock auto-expires.                                               |
-| `CONTENDED_LEASE_MS` | `20 s`             | Shorter idle lease applied while another session is waiting.                        |
+| `CONTENDED_LEASE_MS` | `10 s`             | Shorter idle lease applied while another session is waiting.                        |
 | `WAIT_MS`            | `15 s`             | How long a blocked edit waits before returning the retry-later message.             |
 | `SHARED_PATTERNS`    | configs, lockfiles | Glob patterns treated as warn-only shared zones.                                    |
 

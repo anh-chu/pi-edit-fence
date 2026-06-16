@@ -63,7 +63,7 @@ const LEASE_MS = 5 * 60 * 1000;
 // When another session is actively waiting on a subtree, the owner's idle lease
 // shortens to this. A genuinely-done owner frees fast, but only under contention;
 // a solo owner keeps the full LEASE_MS.
-const CONTENDED_LEASE_MS = 20 * 1000;
+const CONTENDED_LEASE_MS = 10 * 1000;
 // On a blocked edit, wait this long for the owner to release/expire before giving
 // the agent a retry-later message (transparently absorbs brief overlaps).
 const WAIT_MS = 15 * 1000;
@@ -272,10 +272,8 @@ export default function (pi: ExtensionAPI) {
 			return {
 				block: true,
 				reason:
-					`path-fence: ${SCOPE === "file" ? "file" : "area"} "${key}" is currently locked by another active pi session (${result.owner.session}, pid ${result.owner.pid}). ` +
-					`This lock is TEMPORARY and releases automatically when that session moves on. ` +
-					`Do not loop-retry now. Instead: ${SCOPE === "file" ? "work on OTHER files" : `work on files OUTSIDE "${key}"`} first, then RETRY this edit LATER — it will succeed once the other session is done. ` +
-					`If you have no other work, tell the user "${key}" is held by another session (they can run "/steal ${key}" to force handover; you cannot run that yourself).`,
+					`path-fence: ${SCOPE === "file" ? "file" : "area"} "${key}" is locked by another active pi session (${result.owner.session}, pid ${result.owner.pid}). ` +
+					`Work on other files, or wait and retry this edit — the lock releases automatically when the other session is done.`,
 			};
 		}
 		if (result.kind === "warn" && ctx.hasUI) {

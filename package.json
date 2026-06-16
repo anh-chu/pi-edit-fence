@@ -1,6 +1,6 @@
 {
   "name": "pi-edit-fence",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stop concurrent pi sessions from clobbering each other's edits. Per-file locks, auto-claim on edit, retry-later, lease expiry, crash recovery. No git worktrees.",
   "keywords": [
     "pi-package",
@@ -26,7 +26,9 @@
     "LICENSE"
   ],
   "pi": {
-    "extensions": ["./extensions"]
+    "extensions": [
+      "./extensions"
+    ]
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*",
